@@ -1,14 +1,12 @@
 require "bundler/gem_tasks"
+require "rspec/core/rake_task"
 
-desc "Run tests"  
-task :test do
-  sh "ruby -I lib test/test_deprecate_simple.rb"
-end
+RSpec::Core::RakeTask.new(:spec)
 
 desc "Run manual verification"
 task :manual do
   sh "ruby -I lib test_manual.rb"  
 end
 
-task :default => :test
+task :default => :spec
 

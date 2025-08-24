@@ -25,7 +25,7 @@ jobs:
     
     - name: Run tests
       run: |
-        bundle exec ruby -I lib test/test_deprecate_simple.rb
+        bundle exec rspec
     
     - name: Run manual verification
       run: |

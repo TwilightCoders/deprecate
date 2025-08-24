@@ -1,8 +1,8 @@
-require 'test/unit'
+require 'minitest/autorun'
 require 'stringio'
 require_relative '../lib/deprecate'
 
-class TestDeprecate < Test::Unit::TestCase
+class TestDeprecate < Minitest::Test
   def setup
     Deprecate.reset_warnings!
     @output = StringIO.new
