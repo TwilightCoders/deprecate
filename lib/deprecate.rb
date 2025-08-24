@@ -32,7 +32,12 @@ module Deprecate
       return if Deprecate.config[:warn_once] && Deprecate.warned_methods[method_key]
 
       replacement_text = replacement ? " (use #{replacement} instead)" : ""
-      caller_info = Deprecate.config[:show_caller] ? caller_locations(3, 1).first.to_s : "unknown"
+      caller_info = if Deprecate.config[:show_caller]
+        caller_location = caller_locations(3, 1)
+        caller_location && caller_location.first ? caller_location.first.to_s : "unknown"
+      else
+        "unknown"
+      end
       
       message = Deprecate.config[:message_format] % {
         method: method_name,

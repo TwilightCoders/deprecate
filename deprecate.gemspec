@@ -9,8 +9,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Dale Stevens']
   spec.email         = ['dale@twilightcoder.net']
   spec.summary       = 'Easily maintain your codebase by exposing an easy and concise way to mark methods as deprecated.'
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/twilightcoders/deprecate'
   spec.license       = 'MIT'
+
+  spec.required_ruby_version = '>= 2.7.0'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
