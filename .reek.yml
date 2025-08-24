@@ -1,0 +1,24 @@
+---
+detectors:
+  # Don't complain about instance variable usage in module
+  InstanceVariableAssumption:
+    enabled: false
+    
+  # Allow long parameter lists for method wrapping  
+  LongParameterList:
+    max_params: 4
+    
+  # Allow utility modules to be a bit more complex
+  TooManyStatements:
+    max_statements: 15
+    
+  # Allow some complexity for method interception
+  NestedIterators:
+    max_allowed_nesting: 2
+    
+  # Don't complain about simple feature envy for configuration access
+  FeatureEnvy:
+    enabled: false
+    
+exclude_paths:
+  - test_manual.rb

@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['2.7', '3.0', '3.1', '3.2', '3.3']
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    
+    - name: Run tests
+      run: |
+        bundle exec ruby -I lib test/test_deprecate_simple.rb
+    
+    - name: Run manual verification
+      run: |
+        bundle exec ruby -I lib test_manual.rb
+
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Ruby  
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    
+    - name: Install Qlty
+      run: |
+        curl -s https://download.qlty.sh/qlty/install.sh | sh
+        echo "$HOME/.qlty/bin" >> $GITHUB_PATH
+    
+    - name: Run Qlty
+      run: qlty check --reporter github-actions
+
+  gem:
+    runs-on: ubuntu-latest
+    needs: [test, quality]
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1  
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    
+    - name: Build gem
+      run: gem build deprecate.gemspec
+    
+    - name: Install gem locally
+      run: gem install ./deprecate-*.gem

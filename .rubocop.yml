@@ -1,0 +1,39 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  NewCops: enable
+  Exclude:
+    - 'test_manual.rb'
+    - 'vendor/**/*'
+
+# Allow longer lines for documentation  
+Layout/LineLength:
+  Max: 100
+  AllowedPatterns: 
+    - '\A\s*#'  # Allow long comment lines
+
+# Allow class variables for module-level config
+Style/ClassVars:
+  Exclude:
+    - 'lib/deprecate.rb'
+
+# Allow module variables (@config, @warned_methods)
+Style/ModuleFunction:
+  Enabled: false
+
+# Don't require class documentation for simple classes
+Style/Documentation:
+  Exclude:
+    - 'test/**/*'
+    - 'lib/deprecate/version.rb'
+
+# Allow multiple assignments for configuration hash
+Style/HashSyntax:
+  EnforcedStyle: ruby19_no_mixed_keys
+
+# Don't require frozen string literals for a simple gem
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# Allow method definitions after private
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: false
