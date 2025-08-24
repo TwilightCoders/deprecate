@@ -44,13 +44,10 @@ jobs:
         ruby-version: '3.3'
         bundler-cache: true
     
-    - name: Install Qlty
+    - name: Install and run Qlty
       run: |
-        curl -s https://download.qlty.sh/qlty/install.sh | sh
-        echo "$HOME/.qlty/bin" >> $GITHUB_PATH
-    
-    - name: Run Qlty
-      run: qlty check --reporter github-actions
+        curl -sSL https://download.qlty.sh/qlty/install.sh | bash
+        $HOME/.qlty/bin/qlty check --reporter github-actions
 
   gem:
     runs-on: ubuntu-latest

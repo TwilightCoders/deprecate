@@ -2,7 +2,8 @@
 
 [![CI](https://github.com/twilightcoders/deprecate/actions/workflows/ci.yml/badge.svg)](https://github.com/twilightcoders/deprecate/actions/workflows/ci.yml)
 [![Gem Version](https://badge.fury.io/rb/deprecate.svg)](https://badge.fury.io/rb/deprecate)
-[![Code Quality](https://img.shields.io/badge/code%20quality-qlty-blue)](https://qlty.sh)
+[![Code Coverage](https://qlty.sh/gh/TwilightCoders/projects/deprecate/coverage.svg)](https://qlty.sh/gh/TwilightCoders/projects/deprecate)
+[![Maintainability](https://qlty.sh/gh/TwilightCoders/projects/deprecate/maintainability.svg)](https://qlty.sh/gh/TwilightCoders/projects/deprecate)
 
 Easily maintain your codebase by exposing an easy and concise way to mark methods as deprecated.
 

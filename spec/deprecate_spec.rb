@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Deprecate do
   let(:output) { StringIO.new }
-  
+
   before do
     Deprecate.reset_warnings!
     Deprecate.configure do |config|
@@ -10,7 +10,7 @@ RSpec.describe Deprecate do
       config[:warn_once] = false
     end
   end
-  
+
   after do
     Deprecate.configure do |config|
       config[:output_stream] = $stderr
@@ -25,11 +25,11 @@ RSpec.describe Deprecate do
           def old_method
             "old result"
           end
-          
+
           def new_method
             "new result"
           end
-          
+
           deprecate :old_method, :new_method
         end
       end
@@ -52,7 +52,7 @@ RSpec.describe Deprecate do
           def legacy_method
             "legacy result"
           end
-          
+
           deprecate :legacy_method
         end
       end
@@ -76,7 +76,7 @@ RSpec.describe Deprecate do
           def old_method(arg1, arg2)
             "#{arg1}-#{arg2}"
           end
-          
+
           deprecate :old_method, :new_method
         end
       end
@@ -145,7 +145,7 @@ RSpec.describe Deprecate do
           def old_method
             "result"
           end
-          
+
           deprecate :old_method
         end
       end
@@ -154,7 +154,7 @@ RSpec.describe Deprecate do
         obj = test_class.new
         obj.old_method
         obj.old_method
-        
+
         warnings = output.string.scan(/DEPRECATION WARNING/)
         expect(warnings.length).to eq(1)
       end
@@ -173,7 +173,7 @@ RSpec.describe Deprecate do
           def old_method
             "result"
           end
-          
+
           deprecate :old_method, :new_method
         end
       end
@@ -190,7 +190,7 @@ RSpec.describe Deprecate do
     it 'clears the warned methods hash' do
       # Just test that the hash gets cleared
       Deprecate.configure { |config| config[:warn_once] = true }
-      
+
       # Add a warning to the hash
       test_class = Class.new do
         def old_method
@@ -198,12 +198,12 @@ RSpec.describe Deprecate do
         end
         deprecate :old_method
       end
-      
+
       obj = test_class.new
-      obj.old_method  # This should add to warned_methods hash
-      
+      obj.old_method # This should add to warned_methods hash
+
       expect(Deprecate.warned_methods).not_to be_empty
-      
+
       Deprecate.reset_warnings!
       expect(Deprecate.warned_methods).to be_empty
     end

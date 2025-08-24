@@ -35,7 +35,8 @@ class TestDeprecate < Minitest::Test
     result = obj.old_method
 
     assert_equal "old result", result
-    assert_match(/DEPRECATION WARNING: old_method is deprecated \(use new_method instead\)/, @output.string)
+    assert_match(/DEPRECATION WARNING: old_method is deprecated \(use new_method instead\)/,
+                 @output.string)
   end
 
   def test_deprecate_method_without_replacement

@@ -1,39 +1,84 @@
+# Rubocop configuration for deprecate gem
 AllCops:
   TargetRubyVersion: 2.7
   NewCops: enable
   Exclude:
     - 'test_manual.rb'
     - 'vendor/**/*'
+    - 'test/**/*'  # Exclude all test files from most checks
 
-# Allow longer lines for documentation  
+# Relax line length for readability
 Layout/LineLength:
-  Max: 100
-  AllowedPatterns: 
-    - '\A\s*#'  # Allow long comment lines
-
-# Allow class variables for module-level config
-Style/ClassVars:
+  Max: 120
   Exclude:
-    - 'lib/deprecate.rb'
+    - 'deprecate.gemspec'
 
-# Allow module variables (@config, @warned_methods)
-Style/ModuleFunction:
+# Don't require documentation for simple gems
+Style/Documentation:
   Enabled: false
 
-# Don't require class documentation for simple classes
-Style/Documentation:
+# Allow longer methods for main functionality
+Metrics/MethodLength:
+  Max: 25
   Exclude:
     - 'test/**/*'
-    - 'lib/deprecate/version.rb'
+    - 'spec/**/*'
 
-# Allow multiple assignments for configuration hash
-Style/HashSyntax:
-  EnforcedStyle: ruby19_no_mixed_keys
+# Allow complex methods for core functionality
+Metrics/AbcSize:
+  Max: 30
 
-# Don't require frozen string literals for a simple gem
+Metrics/CyclomaticComplexity:
+  Max: 12
+
+Metrics/PerceivedComplexity:
+  Max: 12
+
+# Allow long blocks in tests
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+
+# Allow long classes in tests
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+    - 'spec/**/*'
+
+# Don't require frozen string literals
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Allow method definitions after private
-Layout/EmptyLinesAroundMethodBody:
+# Allow format strings (used in deprecation messages)
+Style/FormatString:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+# Allow string literals as needed
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+  Exclude:
+    - 'spec/**/*'
+
+# Don't require MFA for development
+Gemspec/RequireMFA:
+  Enabled: false
+
+# Allow development dependencies in gemspec
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
+# Allow deprecated gemspec attributes for compatibility
+Gemspec/DeprecatedAttributeAssignment:
+  Enabled: false
+
+# Allow encoding comments for compatibility
+Style/Encoding:
+  Enabled: false
+
+# Allow redundant return for clarity
+Style/RedundantReturn:
   Enabled: false

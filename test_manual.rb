@@ -6,11 +6,11 @@ class TestClass
   def old_method(name = "world")
     "Hello, #{name}!"
   end
-  
-  def new_method(name = "world") 
+
+  def new_method(name = "world")
     "Hi there, #{name}!"
   end
-  
+
   deprecate :old_method, :new_method
 end
 
@@ -35,7 +35,7 @@ class TestClass2
   def legacy_method
     "legacy"
   end
-  
+
   deprecate :legacy_method
 end
 
